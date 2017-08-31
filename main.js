@@ -8,6 +8,11 @@ const log = console.log;
 
 log(Chalk.bgBlue("Search Program Start"));
 
+data.init({
+  start: "Jordan",
+  goal: "Whitefish"
+});
+
 data.readData().then(() => {
   data.genericSearch();
   data.aStarSearch();

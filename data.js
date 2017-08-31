@@ -7,26 +7,46 @@ const Promise = require('promise');
 const fs = require('fs');
 // Shorthand for console.log
 const log = console.log;
+// Shorthand for err
+const ERR = Chalk.bgRed('ERR:');
 
 // Data structure exported
 module.exports = {
-  _Roads: null,
-  _SLD: null,
+  _roads: null,
+  _sld: null,
+  _start: null,
+  _goal: null,
   
-  // Gets the "private" road information
-  getRoads: function() {
-    return this._Roads;
+  // Initializer
+  init(params = { }) {
+    return new Promise((resolve, reject) => {
+      this._roads = params.roads ? params.roads : null;
+      this._sld = params.sld ? params.sld : null;
+      this._start = params.start ? params.start : null;
+      this._goal = params.goal ? params.goal : null;
+      
+      resolve();
+    });
   },
-  // Gets the "private" sld information
-  getSLD: function() {
-    return this._SLD;
+  // Getters
+  get roads() {
+    return this._roads;
+  },
+  get sld() {
+    return this._sld;
+  },
+  get start() {
+    return this._start;
+  },
+  get goal() {
+    return this._goal;
   },
   // Reads in the roads and sld information by calling the associated functions.
   // Returns a promise
   readData: function() {
     return Promise.all([this._readRoads(), this._readSLD()]).then((values) => {
-      this._Roads = values[0];
-      this._SLD = values[1];
+      this._roads = values[0];
+      this._sld = values[1];
     });
   },
   // Reads in the road information. Returns a promise
@@ -34,7 +54,7 @@ module.exports = {
     return new Promise((resolve, reject) => {
       fs.readFile('Roads.txt', (err, data) => {
         if (err) {
-          log(`${Chalk.bgRed("ERR:")} ${err}`);
+          log(`${ERR} ${err}`);
           
           reject(err);
         }
@@ -70,7 +90,7 @@ module.exports = {
     return new Promise((resolve, reject) => {
       fs.readFile('SLD.txt', (err, data) => {
         if (err) {
-          log(`${Chalk.bgRed("ERR:")} ${err}`);
+          log(`${ERR} ${err}`);
           
           reject(err);
         }
@@ -95,7 +115,7 @@ module.exports = {
   // Accepts a searc function.
   _search: function(searchAlg = undefined) {
     if (searchAlg === undefined) {
-      log(`${Chalk.bgRed("ERR:")} No search function given.`);
+      log(`${ERR} No search function given.`);
       
       return;
     }
@@ -118,14 +138,14 @@ module.exports = {
     return this._search(this._aStar);
   },
   // Generic search algorithm. Returns a promise that resolves an array as
-  // [ search name, search path, cost of path, number of nodes expanded]
+  // [ search name, search path, cost of path, number of nodes expanded ]
   _generic: function() {
     return new Promise((resolve, reject) => {
       resolve([ "Generic Search", 'Path', 'Cost', 'Number Nodes Expanded' ]);
     });
   },
   // A* search algorithm. Returns a promise that resolves an array as
-  // [ search function name, search path, cost of path, number of nodes expanded]
+  // [ search name, search path, cost of path, number of nodes expanded ]
   _aStar: function() {
     return new Promise((resolve, reject) => {
       resolve([ "A* Search", 'Path', 'Cost', 'Number Nodes Expanded' ]);
