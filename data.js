@@ -34,7 +34,7 @@ module.exports = {
     return new Promise((resolve, reject) => {
       fs.readFile('Roads.txt', (err, data) => {
         if (err) {
-          log(Chalk.red(err));
+          log(`${Chalk.bgRed("ERR:")} ${err}`);
           
           reject(err);
         }
@@ -70,7 +70,7 @@ module.exports = {
     return new Promise((resolve, reject) => {
       fs.readFile('SLD.txt', (err, data) => {
         if (err) {
-          log(Chalk.red(err));
+          log(`${Chalk.bgRed("ERR:")} ${err}`);
           
           reject(err);
         }
@@ -92,13 +92,34 @@ module.exports = {
       });
     });
   },
-  search: function(searchAlg = undefined) {
-    if (!searchAlg) {
-      log(Chalk.bgRed("Error:") + ' ' + Chalk.red('No search function given.'));
+  // Accepts a searc function.
+  _search: function(searchAlg = undefined) {
+    if (searchAlg === undefined) {
+      log(`${Chalk.bgRed("ERR:")} No search function given.`);
       
-      return
+      return;
     }
     
     searchAlg();
+  },
+  // Performs the generic search
+  genericSearch: function() {
+    log(`--- ${Chalk.bgMagenta("Generic")} ---`);
+    
+    this._search(this._generic);
+  },
+  // Performs the A* search
+  aStarSearch: function() {
+    log(`--- ${Chalk.bgMagenta("A*")} ---`);
+    
+    this._search(this._aStar);
+  },
+  // Generic search algorithm
+  _generic: function() {log("Generic Search")
+    return;
+  },
+  // A* search algorithm
+  _aStar: function() {log("A* Search")
+    return;
   }
 };

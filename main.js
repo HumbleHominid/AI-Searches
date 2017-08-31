@@ -9,5 +9,6 @@ const log = console.log;
 log(Chalk.bgBlue("Search Program Start"));
 
 data.readData().then(() => {
-  data.search();
+  data.genericSearch();
+  data.aStarSearch();
 });
