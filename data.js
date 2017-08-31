@@ -100,26 +100,35 @@ module.exports = {
       return;
     }
     
-    searchAlg();
+    searchAlg().then((data) => {
+      let [ name, path, cost, numNodes ] = data;
+      
+      log(`--- ${Chalk.bgMagenta(name)} ---
+        ${Chalk.bgCyan("Path:")} ${path}
+        ${Chalk.bgCyan("Cost:")} ${cost}
+        ${Chalk.bgCyan("Number Nodes Expanded:")} ${numNodes}`);
+    });
   },
   // Performs the generic search
   genericSearch: function() {
-    log(`--- ${Chalk.bgMagenta("Generic")} ---`);
-    
-    this._search(this._generic);
+    return this._search(this._generic);
   },
   // Performs the A* search
   aStarSearch: function() {
-    log(`--- ${Chalk.bgMagenta("A*")} ---`);
-    
-    this._search(this._aStar);
+    return this._search(this._aStar);
   },
-  // Generic search algorithm
-  _generic: function() {log("Generic Search")
-    return;
+  // Generic search algorithm. Returns a promise that resolves an array as
+  // [ search name, search path, cost of path, number of nodes expanded]
+  _generic: function() {
+    return new Promise((resolve, reject) => {
+      resolve([ "Generic Search", 'Path', 'Cost', 'Number Nodes Expanded' ]);
+    });
   },
-  // A* search algorithm
-  _aStar: function() {log("A* Search")
-    return;
+  // A* search algorithm. Returns a promise that resolves an array as
+  // [ search function name, search path, cost of path, number of nodes expanded]
+  _aStar: function() {
+    return new Promise((resolve, reject) => {
+      resolve([ "A* Search", 'Path', 'Cost', 'Number Nodes Expanded' ]);
+    });
   }
 };
