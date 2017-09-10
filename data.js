@@ -133,10 +133,11 @@ module.exports = {
       ${Chalk.bgCyan("Cost:")} ${cost}
       ${Chalk.bgCyan("Number Nodes Expanded:")} ${numNodes}`);
   },
-  // Generic search algorithm. Returns a promise that resolves an array as
+  // Generic search algorithm. Returns an array as
   // [ search name, search path, cost of path, number of nodes expanded ]
   _generic: function() {
-    let frontier = [ this.start ];
+    let start = this.start;
+    let frontier = [ start ];
     let roads = this.roads;
     let parentMap = { };
     let numNodes = 0;
@@ -170,7 +171,7 @@ module.exports = {
     let cost = 0;
     let path = [ ];
     
-    while (curr) {
+    while (curr in parentMap) {
       if (path[0] && curr in roads[path[0]]) {
         cost = cost + roads[path[0]][curr];
       }
@@ -180,9 +181,14 @@ module.exports = {
       curr = parentMap[curr];
     }
     
+    // Path build from bottom up. If nothing on path put start on path
+    if (!path.length) {
+      path = [ start ];
+    }
+    
     return [ "Generic (Depth First) Search", path, cost, numNodes ];
   },
-  // A* search algorithm. Returns a promise that resolves an array as
+  // A* search algorithm. Returns an array as
   // [ search name, search path, cost of path, number of nodes expanded ]
   _aStar: function() {
     let start = this.start;
