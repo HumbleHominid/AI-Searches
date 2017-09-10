@@ -180,10 +180,7 @@ module.exports = {
       curr = parentMap[curr];
     }
     
-    // Path build from bottom up. If nothing on path put start on path
-    if (!path.length) {
-      path = [ start ];
-    }
+    path.unshift(start)
     
     return [ "Generic (Depth First) Search", path, cost, numNodes ];
   },

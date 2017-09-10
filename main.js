@@ -10,7 +10,7 @@ log(Chalk.bgBlue("Search Program Start"));
 
 data.set({
   start: "Jordan",
-  goal: "asht"
+  goal: "Whitefish"
 });
 
 data.readData().then(() => {
