@@ -14,6 +14,8 @@ data.init({
 });
 
 data.readData().then(() => {
-  data.genericSearch();
-  data.aStarSearch();
+  data.search("generic");
+  data.search("aStar");
+}).finally(() => {
+  log(Chalk.bgBlue("Search Program End"));
 });
