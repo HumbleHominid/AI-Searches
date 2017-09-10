@@ -8,7 +8,7 @@ const log = console.log;
 
 log(Chalk.bgBlue("Search Program Start"));
 
-data.init({
+data.set({
   start: "Jordan",
   goal: "asht"
 });

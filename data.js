@@ -18,12 +18,11 @@ module.exports = {
   _goal: null,
   
   // Initializer
-  init(params = { }) {
+  set(params = { }) {
     return new Promise((resolve, reject) => {
-      this._roads = params.roads ? params.roads : null;
-      this._sld = params.sld ? params.sld : null;
-      this._start = params.start ? params.start : null;
-      this._goal = params.goal ? params.goal : null;
+      for (let option in params) {
+        this[`_${option}`] = params[option];
+      }
       
       resolve();
     });
