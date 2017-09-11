@@ -25,7 +25,7 @@ module.exports = {
   _start: null,
   _goal: null,
   
-  // setter
+  // Setter
   set(params = { }) {
     return new Promise((resolve, reject) => {
       for (let option in params) {
@@ -128,9 +128,11 @@ module.exports = {
       });
     });
   },
-  // Accepts a search function.
-  
   /**
+   * Checks if the search algorithm is in the object then runs if true
+   *
+   * @param{searchAlg} Name of the search algorith to run.
+   *
    * @return{} Returns a promise for reading road data. resolves when
    *  data has successfully been reads. rejects on error
    */
@@ -154,8 +156,11 @@ module.exports = {
       ${Chalk.bgCyan("Cost:")} ${cost}
       ${Chalk.bgCyan("Number Nodes Expanded:")} ${numNodes}`);
   },
-  // Generic search algorithm. Returns an array as
-  // [ search name, search path, cost of path, number of nodes expanded ]
+  /**
+   * Runs a deapth first search on the data
+   *
+   * @return{Array} array with [ search name, search path, cost of path, number of nodes expanded ]
+   */
   _generic: function() {
     let start = this.start;
     let roads = this.roads;
@@ -211,8 +216,11 @@ module.exports = {
     
     return [ "Generic (DFS) Search", path, cost, numNodes ];
   },
-  // A* search algorithm. Returns an array as
-  // [ search name, search path, cost of path, number of nodes expanded ]
+  /**
+   * Runs an A* search on the data
+   *
+   * @return{Array} array with [ search name, search path, cost of path, number of nodes expanded ]
+   */
   _aStar: function() {
     let start = this.start;
     let roads = this.roads;
@@ -280,7 +288,14 @@ module.exports = {
     
     return [ "A* Search", [ start ], 0, numNodes ];
   },
-  // Returns a path and cost for the path as [ path, cost ]
+  /**
+   * Reconstructs a path based on a came from map and a start
+   *
+   * @param{cameFrom} Map of node relations
+   * @param{current} The current node to start from
+   *
+   * @return{Array} array with [ path, cost ]
+   */
   _reconstructPath: function(cameFrom = { }, current = "") {
     let roads = this.roads;
     let totalPath = [ current ];

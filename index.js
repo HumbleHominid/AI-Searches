@@ -9,7 +9,6 @@
 // Global includes
 //----------------
 const Chalk = require('chalk');
-const Graph = require('./graph');
 
 //-----------------
 // Global Variables
@@ -39,6 +38,8 @@ if (process.argv.indexOf("-t") !== -1) {
 }
 // If not in test environment
 else {
+  let Graph = require('./graph');
+  
   let start = "Jordan";
   let goal = "Whitefish";
   
