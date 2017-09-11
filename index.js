@@ -1,3 +1,8 @@
+/************************
+ * @file index.js
+ * 
+ * @author{Michael Fryer}
+ ***********************/
 "use strict";
 
 //----------------
@@ -10,7 +15,7 @@ const Graph = require('./graph');
 // Global Variables
 //-----------------
 const log = console.log;
-const ERR = Chalk.bgRed('ERR:');
+const ERR = Chalk.bgRed('ERR:');  
 
 //-----------------
 // Helper Functions
@@ -34,10 +39,15 @@ if (process.argv.indexOf("-t") !== -1) {
 }
 // If not in test environment
 else {
+  let start = "Jordan";
+  let goal = "Whitefish";
+  
   Graph.readData().then(() => {
+    log(`${Chalk.bgGreen("Running searches:")} ${start} to ${goal}.`);
+    
     Graph.set({
-      start: "Jordan",
-      goal: "Whitefish"
+      start: start,
+      goal: goal
     }).then(() => {
       Graph.search("generic");
       Graph.search("aStar");

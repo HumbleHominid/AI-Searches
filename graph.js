@@ -1,3 +1,8 @@
+/************************
+ * @file graph.js
+ * 
+ * @author{Michael Fryer}
+ ***********************/
 "use strict";
 
 //----------------
@@ -43,15 +48,21 @@ module.exports = {
   get goal() {
     return this._goal;
   },
-  // Reads in the roads and sld information by calling the associated functions.
-  // Returns a promise
+  /**
+   * Reads the roads and sld data
+   *
+   * @return{Promise} returns a promise waiting for roads and sld to be read
+   */
   readData: function() {
     return Promise.all([this._readRoads(), this._readSLD()]).then((values) => {
       this._roads = values[0];
       this._sld = values[1];
     });
   },
-  // Reads in the road information. Returns a promise
+  /**
+   * @return{Promise} Returns a promise for reading road data. resolves when
+   *  data has successfully been reads. rejects on error
+   */
   _readRoads: function() {
     return new Promise((resolve, reject) => {
       fs.readFile('Roads.txt', (err, data) => {
@@ -87,7 +98,10 @@ module.exports = {
       });
     });
   },
-  // Reads in the sld information. Returns a promise
+  /**
+   * @return{Promise} Returns a promise for reading sld data. resolves when
+   *  data has successfully been reads. rejects on error
+   */
   _readSLD: function() {
     return new Promise((resolve, reject) => {
       fs.readFile('SLD.txt', (err, data) => {
@@ -115,6 +129,11 @@ module.exports = {
     });
   },
   // Accepts a search function.
+  
+  /**
+   * @return{} Returns a promise for reading road data. resolves when
+   *  data has successfully been reads. rejects on error
+   */
   search: function(searchAlg = undefined) {
     if (searchAlg === undefined) {
       log(`${ERR} No search function given.`);
