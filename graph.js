@@ -65,7 +65,7 @@ module.exports = {
    */
   _readRoads: function() {
     return new Promise((resolve, reject) => {
-      fs.readFile('Roads.txt', (err, data) => {
+      fs.readFile('Data/Roads.txt', (err, data) => {
         if (err) {
           log(`${ERR} ${err}`);
           
@@ -104,7 +104,7 @@ module.exports = {
    */
   _readSLD: function() {
     return new Promise((resolve, reject) => {
-      fs.readFile('SLD.txt', (err, data) => {
+      fs.readFile('Data/SLD.txt', (err, data) => {
         if (err) {
           log(`${ERR} ${err}`);
           

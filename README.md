@@ -8,4 +8,3 @@ Searches for ai written in js
 - Run `node index` from the command line to run the program
 - Run `node index -t` from the command line to run the program in test mode
   - Alter the `tests` variable of `tests.js` to create a new test
-  
