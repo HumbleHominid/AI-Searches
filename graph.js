@@ -139,10 +139,7 @@ module.exports = {
     let roads = this.roads;
     
     if (!(start in roads)) {
-      return [ "Generic (Depth First) Search",
-             [ "Invalid starting city." ],
-             0,
-             0 ];
+      return [ "Generic (DFS) Search", [ "Invalid starting city." ], 0, 0 ];
     }
     
     let frontier = [ start ];
@@ -190,7 +187,7 @@ module.exports = {
     
     path.unshift(start)
     
-    return [ "Generic (Depth First) Search", path, cost, numNodes ];
+    return [ "Generic (DFS) Search", path, cost, numNodes ];
   },
   // A* search algorithm. Returns an array as
   // [ search name, search path, cost of path, number of nodes expanded ]
