@@ -10,14 +10,14 @@ const ERR = Chalk.bgRed('ERR:');
 // Test cases for running tests
 const tests = {
   test0: {
-    desc: "undefined to undefined",
+    desc: "null to null",
   },
   test1: {
-    desc: "Jordan to undefined",
+    desc: "Jordan to null",
     start: "Jordan"
   },
   test2: {
-    desc: "undefined to Whitefish",
+    desc: "null to Whitefish",
     goal: "Whitefish"
   },
   test3: {
