@@ -7,4 +7,4 @@ Searches for ai written in js
 - Inside the `AI-Searches` directory run `npm install`
 - Run `node index` from the command line to run the program
 - Run `node index -t` from the command line to run the program in test mode.
--- Alter the `tests` variable of `tests.js` to create a new test.
+  - Alter the `tests` variable of `tests.js` to create a new test.
