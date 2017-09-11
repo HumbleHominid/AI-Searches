@@ -136,8 +136,16 @@ module.exports = {
   // [ search name, search path, cost of path, number of nodes expanded ]
   _generic: function() {
     let start = this.start;
-    let frontier = [ start ];
     let roads = this.roads;
+    
+    if (!(start in roads)) {
+      return [ "Generic (Depth First) Search",
+             [ "Invalid starting city." ],
+             0,
+             0 ];
+    }
+    
+    let frontier = [ start ];
     let parentMap = { };
     let numNodes = 0;
     let discovered = [ ];
@@ -188,9 +196,14 @@ module.exports = {
   // [ search name, search path, cost of path, number of nodes expanded ]
   _aStar: function() {
     let start = this.start;
+    let roads = this.roads;
+    
+    if (!(start in roads)) {
+      return [ "A* Search", [ "Invalid starting city." ], 0, 0 ];
+    }
+    
     let sld = this.sld;
     let goal = this.goal;
-    let roads = this.roads;
     let numNodes = 0;
     
     let closedSet = [ ];
