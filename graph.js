@@ -1,13 +1,16 @@
 "use strict";
-// Terminal window colors
+
+//----------------
+// Global includes
+//----------------
 const Chalk = require('chalk');
-// Promise library
 const Promise = require('promise');
-// File reading library
 const fs = require('fs');
-// Shorthand for console.log
+
+//-----------------
+// Global Variables
+//-----------------
 const log = console.log;
-// Shorthand for err
 const ERR = Chalk.bgRed('ERR:');
 
 // Data structure exported
@@ -17,7 +20,7 @@ module.exports = {
   _start: null,
   _goal: null,
   
-  // Initializer
+  // setter
   set(params = { }) {
     return new Promise((resolve, reject) => {
       for (let option in params) {

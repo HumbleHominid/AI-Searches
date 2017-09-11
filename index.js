@@ -3,13 +3,13 @@
 //----------------
 // Global includes
 //----------------
-// Sets graph to be the graph object
-const graph = require('./graph');
-// Imports Chalk
 const Chalk = require('chalk');
-// Shorthand for console.log
+const Graph = require('./graph');
+
+//-----------------
+// Global Variables
+//-----------------
 const log = console.log;
-// Shorthand for err
 const ERR = Chalk.bgRed('ERR:');
 
 //-----------------
@@ -26,29 +26,23 @@ log(Chalk.bgBlue("Search Program Start"));
 
 // Handles running tests
 if (process.argv.indexOf("-t") !== -1) {
-  let Test = require('./tests');
+  let Tests = require('./tests');
   
-  Test.run().then(() => {
+  Tests.run().then(() => {
     exitMessage();
   });
 }
 // If not in test environment
 else {
-  let graph = require('./graph');
-  
-  graph.readData().then(() => {
-    graph.set({
+  Graph.readData().then(() => {
+    Graph.set({
       start: "Jordan",
       goal: "Whitefish"
     }).then(() => {
-      graph.search("generic");
-      graph.search("aStar");
+      Graph.search("generic");
+      Graph.search("aStar");
     }).finally(() => {
       exitMessage();
     });
   });
 }
-
-//------------
-// Program end
-//------------
