@@ -41,7 +41,7 @@ else {
   let Graph = require('./graph');
   
   let start = "Jordan";
-  let goal = "Whitefish";
+  let goal = "Polson";
   
   Graph.readData().then(() => {
     log(`${Chalk.bgGreen("Running searches:")} ${start} to ${goal}.`);

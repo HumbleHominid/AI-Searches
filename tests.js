@@ -6,50 +6,22 @@
 const Graph = require('./graph');
 const Chalk = require('chalk');
 const Promise = require('promise');
+const tests = require('./testData');
 
 //-----------------
 // Global Variables
 //-----------------
 const log = console.log;
-const ERR = Chalk.bgRed('ERR:');
-// Test cases for running tests
-const tests = [
-  { }, // Note this is testing an undefined starting/ending point.
-  {
-    start: "Jordan"
-  },
-  {
-    goal: "Whitefish"
-  },
-  {
-    start: "Jordan",
-    goal: "Whitefish"
-  },
-  {
-    start: "Invalid",
-    goal: "Whitefish"
-  },
-  {
-    start: "Jordan",
-    goal: "Invalid"
-  },
-  {
-    start: "Jordan",
-    goal: "Polson"
-  },
-  {
-    start: "Jordan",
-    goal: "Jordan"
-  },
-  {
-    start: "Jordan",
-    goal: "Dillon"
-  },
-  {
-    start: "Lewistown",
-    goal: "GreatFalls"
+const ERR = Chalk.bgRed('ERR:')
+const assert = {
+  ok: function(bool, message = "NOT OK.") {
+    if (bool) {
+      return Chalk.bgGreen('OK');
+    }
+    
+    return `${ERR} ${message}`
   }
-];
+};
 
 module.exports = {
   run: async function() {
@@ -77,12 +49,27 @@ module.exports = {
         start: testData.start ? testData.start : null,
         goal: testData.goal ? testData.goal : null
       }).then(() => {
-        log(Chalk.bgGreen(`Test ${testNum}:`) + ` ${testData.start} to ${testData.goal}.`);
-        
-        Graph.search("generic");
-        Graph.search("aStar");
-        
-        resolve();
+        Graph.readData().then(() => {
+          let aStar = Graph._aStar();
+          let generic = Graph._generic();
+          let assertData = testData.assert;
+          
+          log(Chalk.bgGreen(`Test ${testNum}:`) + ' ' + Chalk.green(`${testData.start} to ${testData.goal}.`));
+          
+          log(`--- ${Chalk.bgYellow("Asserting A*")} ---`);
+          log(`  Asserting path - ${assert.ok(aStar[1].toString() === assertData.aStar.path)}`);
+          log(`  Asserting cost - ${assert.ok(aStar[2] === assertData.aStar.cost)}`);
+          
+          log(`--- ${Chalk.bgYellow("Asserting generic")} ---`);
+          log(`  Asserting path - ${assert.ok(generic[1].toString() === assertData.generic.path)}`);
+          log(`  Asserting cost - ${assert.ok(generic[2] === assertData.generic.cost)}`);
+          
+          resolve();
+        }).catch(() => {
+          log(`${ERR} There was an error reading the data.`);
+          
+          reject();
+        });
       }).catch(() => {
         log(`${ERR} There was an error setting the data.`);
         

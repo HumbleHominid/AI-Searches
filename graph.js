@@ -164,16 +164,19 @@ module.exports = {
   _generic: function() {
     let start = this.start;
     let roads = this.roads;
+    let goal = this.goal;
     
     if (!(start in roads)) {
       return [ "Generic (DFS) Search", [ "Invalid starting city." ], 0, 0 ];
+    }
+    else if (!(goal in roads)) {
+      return [ "Generic (DFS) Search", [ "Invalid ending city." ], 0, 0 ];
     }
     
     let frontier = [ start ];
     let parentMap = { };
     let numNodes = 0;
     let discovered = [ ];
-    let goal = this.goal;
     
     while (frontier.length) {
       let parent = frontier.pop();
@@ -202,7 +205,7 @@ module.exports = {
     let cost = 0;
     let path = [ ];
     
-    while (curr in parentMap) {
+    while (curr) {
       if (path[0] && curr in roads[path[0]]) {
         cost = cost + roads[path[0]][curr];
       }
@@ -211,8 +214,6 @@ module.exports = {
       
       curr = parentMap[curr];
     }
-    
-    path.unshift(start)
     
     return [ "Generic (DFS) Search", path, cost, numNodes ];
   },
@@ -224,13 +225,16 @@ module.exports = {
   _aStar: function() {
     let start = this.start;
     let roads = this.roads;
+    let goal = this.goal;
     
     if (!(start in roads)) {
       return [ "A* Search", [ "Invalid starting city." ], 0, 0 ];
     }
+    else if (!(goal in roads)) {
+      return [ "Generic (DFS) Search", [ "Invalid ending city." ], 0, 0 ];
+    }
     
     let sld = this.sld;
-    let goal = this.goal;
     let numNodes = 0;
     
     let closedSet = [ ];
