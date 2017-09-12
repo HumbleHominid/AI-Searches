@@ -44,6 +44,10 @@ const tests = [
   {
     start: "Jordan",
     goal: "Dillon"
+  },
+  {
+    start: "Lewistown",
+    goal: "GreatFalls"
   }
 ];
 
